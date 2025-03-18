@@ -38,4 +38,24 @@ class UserController extends Controller
                 ->route('user.index')
                 ->with('success', 'Usuário cadastrado!');
     }
+
+    public function edit(User $user)
+    {
+        return view('users.edit', ['user' => $user]);
+    }
+
+    public function update(UserRequest $request, User $user) 
+    {
+        $request->validated();
+
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+        ]);
+
+        return redirect()
+                    ->route('user.show', ['user' => $user->id])
+                    ->with('success', 'Usuário editado com sucesso');
+    }
 }
