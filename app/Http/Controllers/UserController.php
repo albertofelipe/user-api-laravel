@@ -58,4 +58,13 @@ class UserController extends Controller
                     ->route('user.show', ['user' => $user->id])
                     ->with('success', 'Usuário editado com sucesso');
     }
+
+    public function destroy(User $user)
+    {
+        $user->delete();
+
+        return redirect()
+                ->route('user.index')
+                ->with('success', 'Usuário deletado!');
+    }
 }
